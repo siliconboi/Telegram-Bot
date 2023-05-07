@@ -1,6 +1,6 @@
-import cors from cors;
-import express from express;
-const TelegramBot = require('node-telegram-bot-api');
+import cors from "cors";
+import express from "express";
+import TelegramBot from "node-telegram-bot-api";
 const token = process.env.TOKEN;
 const webAppUrl = 'https://heroic-empanada-97d0d5.netlify.app'
 const bot = new TelegramBot(token, {polling: true});
