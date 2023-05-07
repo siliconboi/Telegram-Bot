@@ -33,7 +33,7 @@ const ProductList = () => {
             totalPrice: getTotalPrice(addedItems),
             queryId,
         }
-        fetch('http://85.119.146.179:8000/web-data', {
+        fetch('https://brothers-cafe-backend.onrender.com/web-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

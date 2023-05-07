@@ -10,8 +10,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "npm run start --prefix backend",
     "frontend": "npm run start --prefix telegram",
+<<<<<<< HEAD
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix telegram"
+=======
+    "dev": "npm install --prefix backend && concurrently \"npm run backend\" \"npm run frontend\"",
+    "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix telegram && npm run build --prefix telegram"
+>>>>>>> 8e408f174afd25efedba5e4faae0c0f90397d551
   },
   "author": "",
   "license": "ISC",
