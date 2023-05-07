@@ -24,7 +24,6 @@ if (process.env.NODE_ENV === 'production') {
 
 
 const port = process.env.PORT || 8080;
-mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true}).then(
     app.listen(port, ()=>{
         console.log(`listening on ${process.env.PORT}`);
-    }));
+    });

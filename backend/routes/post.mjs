@@ -1,37 +1,38 @@
+import cors from cors;
+import express from express;
 const TelegramBot = require('node-telegram-bot-api');
-const express = require('express')
-
 const token = process.env.TOKEN;
 const webAppUrl = 'https://heroic-empanada-97d0d5.netlify.app'
 const bot = new TelegramBot(token, {polling: true});
 const app = express.Router();
 
+app.use(cors());
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
 
   if(text === '/start'){
-    await bot.sendMessage(chatId, 'Ниже появится кнопка, заполни форму', {
+    await bot.sendMessage(chatId, 'A button will appear below, fill out the form', {
         reply_markup: {
             keyboard:[
-                [{text: 'Заполнить форму ', web_app: {url: webAppUrl + '/form'}}]
+                [{text: 'Fill out the form ', web_app: {url: webAppUrl + '/form'}}]
             ]
         }
     })
-    await bot.sendMessage(chatId, 'Тут находятся все продукты без сортировки', {
+    await bot.sendMessage(chatId, 'Here are all the products without sorting', {
         reply_markup: {
             inline_keyboard:[
-                [{text: 'Сделать заказ ', web_app:{url: webAppUrl}}]
+                [{text: 'Make an order ', web_app:{url: webAppUrl}}]
             ]
         }
     })
-    await bot.sendMessage(chatId, 'напишите команду /products -> вам будет представлен весь ассортимент, но уже отсортированный  ', {
+    await bot.sendMessage(chatId, 'write the command /products -> you will be presented with the entire assortment, but already sorted  ', {
     })
   }
 
   if(text === '/info'){
-    await bot.sendMessage(chatId, 'Если у вас остались вопросы, то вам сюда -> @feedbackArmenianHomeBot', {
+    await bot.sendMessage(chatId, 'If you still have questions, then you are here -> @BrothersCafeBot', {
     })
   }
 
@@ -40,12 +41,12 @@ bot.on('message', async (msg) => {
     try {
         const data = JSON.parse(msg?.web_app_data?.data)
 
-        await bot.sendMessage(chatId,'Спасибо за обратную связь! ')
-        await bot.sendMessage(chatId,'Ваше ФИО: ' + data?.fio);
-        await bot.sendMessage(chatId,'Ваша улица: ' + data?.street);
+        await bot.sendMessage(chatId,'Thanks for the feedback! ')
+        await bot.sendMessage(chatId,'Your full name: ' + data?.fio);
+        await bot.sendMessage(chatId,'Your location: ' + data?.street);
 
         setTimeout(async () => {
-            await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате ');
+            await bot.sendMessage(chatId, 'You will receive all the information in this chat ');
 
         }, 3000)
         
@@ -65,9 +66,9 @@ app.post('/web-data', async (req, res) => {
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
             id: queryId,
-            title: 'Успешная покупка',
+            title: 'Successful purchase',
             input_message_content: {
-                message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+                message_text: ` Congratulations on your purchase, you have purchased an item worth of ${totalPrice}, ${products.map(item => item.title).join(', ')}`
             }
         })
         return res.status(200).json({});
