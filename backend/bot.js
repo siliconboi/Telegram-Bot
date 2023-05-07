@@ -5,7 +5,7 @@ const bot = new Telegraf(TOKEN);
 const web_link = "........";
 
 bot.start((ctx) =>
-  ctx.reply("Welcome :)))))", {
+  ctx.reply("Welcome to Brother's Cafe", {
     reply_markup: {
       keyboard: [[{ text: "web app", web_app: { url: web_link } }]],
     },
