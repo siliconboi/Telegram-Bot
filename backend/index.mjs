@@ -17,7 +17,7 @@ app.use('/api', postRouter);
 
 if (process.env.NODE_ENV === 'production') {
     //*Set static folder up in production
-    app.use(express.static('../frontend/build'));
+    app.use(express.static('../telegram/build'));
 
     app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, '../telegram', 'build','index.html')));
   }
